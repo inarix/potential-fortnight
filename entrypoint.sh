@@ -2,28 +2,23 @@
 # File              : entrypoint.sh
 # Author            : Alexandre Saison <alexandre.saison@inarix.com>
 # Date              : 28.05.2021
-# Last Modified Date: 28.05.2021
+# Last Modified Date: 31.05.2021
 # Last Modified By  : Alexandre Saison <alexandre.saison@inarix.com>
 
+if [[ -f .env ]]
+then
+  export $(grep -v '^#' .env | xargs)
+  echo "[$(date +"%m/%d/%y %T")] Exported all env variables"
+else 
+  echo "[$(date +"%m/%d/%y %T")] An error occured during import .env variables"
+  exit 1
+fi
+
 MODEL_INSTANCE_ID="$INPUT_MODELINSTANCEID"
-MODEL_FILELOC_ID="$INPUT_MODELFILELOCID"
+MODEL_FILELOC_ID="$NUTSHELL_WORKER_MODEL_FILE_LOC_ID"
 WORFLOW_TEMPLATE_NAME="$INPUT_WORKFLOWTEMPLATENAME"
 REGRESSION_TEST_ID="non_regression_$MODEL_INSTANCE_ID_$(date +"%s")"
 ARGO_SERVER="$INPUT_ARGOSERVER"
-
-echo "[$(date +"%m/%d/%y %T")] Trying aws-cli"
-aws --version
-if [[ $? == 1 ]]
-then
-  echo "[$(date +"%m/%d/%y %T")] Error: AWS CLI check failed"
-fi
-
-echo "[$(date +"%m/%d/%y %T")] Trying argo-cli"
-argo version
-if [[ $? == 1 ]]
-then
-  echo "[$(date +"%m/%d/%y %T")] Error: Argo CLI check failed"
-fi
 
 if [[ -z $MODEL_INSTANCE_ID ]]
 then
