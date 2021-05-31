@@ -1,0 +1,28 @@
+# File              : action.yaml
+# Author            : Alexandre Saison <alexandre.saison@inarix.com>
+# Date              : 28.05.2021
+# Last Modified Date: 28.05.2021
+# Last Modified By  : Alexandre Saison <alexandre.saison@inarix.com>
+name: 'Potential-Fortnight'
+description: 'Launch Loki worflow to Argo to test models regressions'
+inputs:
+  modelInstanceId:
+    description: 'generated modelInstanceId given by previous registerModel in bookish-happiness'
+    required: true
+  modelFileLocId:
+    description: 'generated FileLocationIdd given by .env file'
+    required: true
+  argoServer:
+    description: 'Host of the Argo server to trigger the worflow'
+    required: false
+    default: 'argo.inarix.com'
+  workflowTemplateName:
+    description: 'Name of the Argo Workflow template to run'
+    required: false
+    default: 'workflowtemplate/wt-model-deploy-non-regression'
+outputs:
+  result: # id of output
+    description: 'Result of the model prediction regression workflow'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
