@@ -1,6 +1,6 @@
 FROM argoproj/argocli:v2.12.11 AS argo-builder
 FROM amazon/aws-cli AS aws-builder
-FROM alpine:3.11
+FROM alpine:3
 
 LABEL version="1.0.0"
 LABEL repository="https://github.com/inarix/potential-fortnigh"
@@ -14,8 +14,7 @@ RUN curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/
     chmod +x ./aws-iam-authenticator &&\
     mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$PATH:$HOME/bin &&\
     echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc &&\
-    source ~/.bashrc &&\
-    aws-iam-authenticator help
+    source ~/.bashrc
 
 # Install Glib 'cause does aws install does not work on ALPINE
 RUN pip install --upgrade awscli s3cmd python-magic && \
