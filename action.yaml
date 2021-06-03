@@ -9,9 +9,6 @@ inputs:
   modelInstanceId:
     description: 'generated modelInstanceId given by previous registerModel in bookish-happiness'
     required: true
-  modelFileLocId:
-    description: 'generated FileLocationIdd given by .env file'
-    required: true
   argoServer:
     description: 'Host of the Argo server to trigger the worflow'
     required: false
