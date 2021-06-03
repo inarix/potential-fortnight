@@ -32,15 +32,6 @@ String representation of the Workflow results
   uses: inarix/potential-fortnight@v1
   with:
     modelInstanceId: ${{ steps.deploy_model.outputs.modelInstanceId }}
-- name: comment PR
-  uses: unsplash/comment-on-pr@master
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    DEPLOYED_MODEL_ID: ${{ steps.deploy_model.outputs.modelInstanceId }}
-    LOKI_RESULTS: ${{ steps.loki_integration_tests.outputs.results }}
-  with:
-    msg: 'Deployed exported model (id: $DEPLOYED_MODEL_ID): $LOKI_RESULTS'
-    check_for_duplicate_msg: false
 ```
 
 ## How to create Github action
