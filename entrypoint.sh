@@ -43,7 +43,8 @@ echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id :  $REGRESSION_TEST_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id:  $MODEL_INSTANCE_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id:  $LOKI_FILE_LOCATION_ID"
 
-RESPONSE=$(argo submit -s $ARGO_SERVER --token $ARGO_TOKEN --from $WORFLOW_TEMPLATE_NAME  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID)
+argo submit -s $ARGO_SERVER --token $ARGO_TOKEN --from $WORFLOW_TEMPLATE_NAME  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+
 # -- Get Worflow metadata --
 # argo get hello-world-xxx        
 
