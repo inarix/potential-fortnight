@@ -1,5 +1,4 @@
 FROM argoproj/argocli:v2.12.11 AS argo-builder
-FROM amazon/aws-cli AS aws-builder
 FROM alpine:3.11
 
 LABEL version="1.0.0"

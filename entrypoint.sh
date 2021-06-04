@@ -7,6 +7,7 @@ else
   exit 1
 fi
 
+# Create the KUBECONFIG to be authenticated to cluster
 aws sts get-caller-identity
 aws eks --region eu-west-1 update-kubeconfig --name $CLUSTER_NAME
 
