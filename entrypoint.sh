@@ -1,10 +1,3 @@
-#!/bin/bash
-# File              : entrypoint.sh
-# Author            : Alexandre Saison <alexandre.saison@inarix.com>
-# Date              : 28.05.2021
-# Last Modified Date: 31.05.2021
-# Last Modified By  : Alexandre Saison <alexandre.saison@inarix.com>
-
 if [[ -f .env ]]
 then
   export $(grep -v '^#' .env | xargs)
@@ -13,6 +6,9 @@ else
   echo "[$(date +"%m/%d/%y %T")] An error occured during import .env variables"
   exit 1
 fi
+
+aws sts get-caller-identity
+aws eks --region eu-west-1 update-kubeconfig --name $CLUSTER_NAME
 
 MODEL_INSTANCE_ID="$INPUT_MODELINSTANCEID"
 WORFLOW_TEMPLATE_NAME="$INPUT_WORKFLOWTEMPLATENAME"

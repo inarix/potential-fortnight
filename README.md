@@ -1,26 +1,40 @@
 # potential-fortnight
-Auto generated name for Loki integration tests run as Argo workflow
+Auto generated name for Loki integration tests run as Argo workflow.
 
-**WARNING**: Since This github action is the logical following ``bookish-happiness`` Github Action, It is required to launch this one in a ``mt-exported-XXX`` repo with a ``.env``
+**WARNING**: Since This github action is the logical following ``bookish-happiness`` Github Action, It is required to launch this one in a ``mt-exported-XXX`` repo with a ``.env``.
 
 ## Inputs
 
 ### > `modelInstanceId`
-Id of the registered model that has been deployed to ArgoCD. Required since this is a paramater for the ```argo submit``` command in the entrypoint.sh
+Id of the registered model that has been deployed to ArgoCD. Required since this is a paramater for the ```argo submit``` command in the entrypoint.sh.
 
 
 ### > `argoServer` (Optionnal)
-Endpoint of the ArgoWorflow server (default: argo.inarix.com)
+Endpoint of the ArgoWorflow server (default: argo.inarix.com).
 
 
 ### > `workflowTemplateName` (Optionnal)
-Name of the Argo WorflowTemplate to launch.(default: workflowtemplate/wt-model-deploy-non-regression)
+Name of the Argo WorflowTemplate to launch.(default: workflowtemplate/wt-model-deploy-non-regression).
 
 ## Outputs
 
 ### > `results`
 
-String representation of the Workflow results
+String representation of the Workflow results.
+
+## Required environment variable
+
+### > `CLUSTER_NAME`
+
+Name of the AWS cluster with ArgoWorflow server. This will be required to create the ``KUBECONFIG`` needed to launch ``argo submit`` command.
+ 
+### > `AWS_ACCESS_KEY_ID`
+
+AWS access key related to AWS IAM user  which can connect to the AWS cluster with ArgoServer.
+
+### > `AWS_SECRET_ACCESS_KEY`
+
+AWS secret key related to AWS IAM user which can connect to the AWS cluster with ArgoServer.
 
 ## Example usage
 ```yaml
@@ -69,4 +83,4 @@ jobs:
 
 This will create a Github Action on each update (push, rebase ...) in a pull request.
 
-NB: You need to always add ```- uses: actions/checkout@v2``` for the github action to fetch your code !
+NB: You need to always add ```- uses: actions/checkout@v2``` for the github action to fetch your code!
