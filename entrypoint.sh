@@ -43,15 +43,16 @@ echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id :  $REGRESSION_TEST_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id:  $MODEL_INSTANCE_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id:  $LOKI_FILE_LOCATION_ID"
 
-argo submit -s $ARGO_SERVER --token $ARGO_TOKEN --from $WORFLOW_TEMPLATE_NAME  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+argo submit --wait --from $WORFLOW_TEMPLATE_NAME -s $ARGO_SERVER --name $REGRESSION_TEST_ID --token $ARGO_TOKEN -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
 
 # -- Get Worflow metadata --
-# argo get hello-world-xxx        
+argo get $REGRESSION_TEST_ID
 
 # -- Fetch Worflow logs --
-#LOGS=$(argo logs hello-world-xxx)
+argo logs $REGRESSION_TEST_ID
+LOGS=$(argo logs $REGRESSION_TEST_ID)
 
 # -- Remove line breaker before sending values (Required by GithubAction)  --
-#LOGS="${LOGS//$'\n'/'%0A'}"
-echo "::set-output name=results::'toto'"
+LOGS="${LOGS//$'\n'/'%0A'}"
+echo "::set-output name=results::'${LOGS}'"
 
