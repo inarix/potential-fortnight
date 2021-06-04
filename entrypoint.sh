@@ -31,22 +31,33 @@ then
 
 fi
 
+echo "::group::Argo arguments list"
 echo "[$(date +"%m/%d/%y %T")] Launching Loki workflow $WORFLOW_TEMPLATE_NAME"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -s :  $ARGO_SERVER"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id :  $REGRESSION_TEST_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id:  $MODEL_INSTANCE_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id:  $LOKI_FILE_LOCATION_ID"
+echo "::endgroup::"
 
 echo "Fetching list of current Argo Workflow."
+echo "::group::List Workflows"
 argo list
+echo "::endgroup::"
 
-# argo submit --from $WORFLOW_TEMPLATE_NAME -w --name $REGRESSION_TEST_ID -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+echo "::group::Launching ArgoWorkflow"
+echo "Launching argo submit --from $WORFLOW_TEMPLATE_NAME -w --name $REGRESSION_TEST_ID -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID"
+argo submit --from $WORFLOW_TEMPLATE_NAME -w --name $REGRESSION_TEST_ID -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+echo "::endgroup::"
 
 # -- Get Worflow metadata --
-# argo get $REGRESSION_TEST_ID
+echo "::group::Fetching ArgoWorkflow"
+argo get $REGRESSION_TEST_ID
+echo "::endgroup::"
 
 # -- Fetch Worflow logs --
-# argo logs $REGRESSION_TEST_ID
+echo "::group::Logs ArgoWorkflow"
+argo logs $REGRESSION_TEST_ID
+echo "::endgroup::"
 
 LOGS=$(argo logs $REGRESSION_TEST_ID)
 
