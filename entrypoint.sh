@@ -45,8 +45,8 @@ argo list
 echo "::endgroup::"
 
 echo "::group::Launching ArgoWorkflow"
-echo "Launching argo submit --from $WORFLOW_TEMPLATE_NAME -w --name $REGRESSION_TEST_ID -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID"
-argo submit --from $WORFLOW_TEMPLATE_NAME -w --name $REGRESSION_TEST_ID -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+echo "Launching argo submit --from $WORFLOW_TEMPLATE_NAME -w -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID"
+argo submit --from $WORFLOW_TEMPLATE_NAME -w  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
 echo "::endgroup::"
 
 # -- Get Worflow metadata --
