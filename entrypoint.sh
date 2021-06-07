@@ -46,20 +46,20 @@ echo "::endgroup::"
 
 echo "::group::Launching ArgoWorkflow"
 echo "Launching argo submit --from $WORFLOW_TEMPLATE_NAME -w -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID"
-argo submit --from $WORFLOW_TEMPLATE_NAME -w  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID
+WORKFLOW_NAME=$(argo submit --from $WORFLOW_TEMPLATE_NAME -w  -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID -o json | jq -e -r .metadata.name)
 echo "::endgroup::"
 
 # -- Get Worflow metadata --
 echo "::group::Fetching ArgoWorkflow"
-argo get $REGRESSION_TEST_ID
+argo get $WORKFLOW_NAME
 echo "::endgroup::"
 
 # -- Fetch Worflow logs --
 echo "::group::Logs ArgoWorkflow"
-argo logs $REGRESSION_TEST_ID
+argo logs $WORKFLOW_NAME
 echo "::endgroup::"
 
-LOGS=$(argo logs $REGRESSION_TEST_ID)
+LOGS=$(argo logs $WORKFLOW_NAME)
 
 # -- Remove line breaker before sending values (Required by GithubAction)  --
 LOGS="${LOGS//$'\n'/'%0A'}"
