@@ -1,4 +1,4 @@
-FROM argoproj/argocli:v2.12.11 AS argo-builder
+FROM argoproj/argocli:v3.0.7 AS argo-builder
 FROM alpine:3.11
 
 LABEL version="1.0.0"
