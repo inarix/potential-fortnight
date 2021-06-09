@@ -18,8 +18,8 @@ inputs:
     required: false
     default: 'workflowtemplate/wt-model-deploy-non-regression'
 outputs:
-  result: # id of output
-    description: 'Result of the model prediction regression workflow'
+  results: # id of output
+    description: 'Results of the model prediction regression workflow'
 runs:
   using: 'docker'
   image: 'Dockerfile'
