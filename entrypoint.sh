@@ -42,10 +42,8 @@ echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id :  $REGRESSION_TEST_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id:  $MODEL_INSTANCE_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id:  $LOKI_FILE_LOCATION_ID"
 echo "[$(date +"%m/%d/%y %T")] Arguments are -p environment: $WORKER_ENV"
-
 echo "::endgroup::"
 
-echo "Fetching list of current Argo Workflow."
 echo "::group::List Workflows"
 argo list
 echo "::endgroup::"
@@ -66,7 +64,7 @@ then
   echo "[$(date +"%m/%d/%y %T")] When using env $WORKER_ENV inarix_api_hostname and prediction_entrypoint used are the default ones (created for production purpose)"
   WORKFLOW_NAME=$(argo submit --from $WORFLOW_TEMPLATE_NAME -w -p test_id=$REGRESSION_TEST_ID -p model_instance_id=$MODEL_INSTANCE_ID -p test_file_location_id=$LOKI_FILE_LOCATION_ID -p environment=$WORKER_ENV -o json | jq -e -r .metadata.name)
 else
-  echo "[$(date +"%m/%d/%y %T")] Error: missing WORFLOW_TEMPLATE_NAME env variable"
+  echo "[$(date +"%m/%d/%y %T")] Error: $WORKER_ENV must be one of [staging, production]"
   exit 1
 fi
 echo "::endgroup::"
