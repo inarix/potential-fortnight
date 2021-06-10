@@ -81,7 +81,7 @@ echo "::endgroup::"
 
 LOGS=$(argo logs $WORKFLOW_NAME --no-color)
 
-LOGS=$(echo $LOGS | while read CMD; do; echo $CMD | cut -d : -f2- ; done;)
+LOGS=$(echo $LOGS | tail -n +2 | while read line; do; echo $line | cut -d : -f2- ; done;)
 
 # -- Remove line breaker before sending values (Required by GithubAction)  --
 LOGS="${LOGS//$'\n'/'%0A'}"
