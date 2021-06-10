@@ -76,10 +76,10 @@ echo "::endgroup::"
 
 # -- Fetch Worflow logs --
 echo "::group::Logs ArgoWorkflow"
-argo logs $WORKFLOW_NAME
+argo logs $WORKFLOW_NAME --no-color
 echo "::endgroup::"
 
-LOGS=$(argo logs $WORKFLOW_NAME)
+LOGS=$(argo logs $WORKFLOW_NAME --no-color)
 
 # -- Remove line breaker before sending values (Required by GithubAction)  --
 LOGS="${LOGS//$'\n'/'%0A'}"
