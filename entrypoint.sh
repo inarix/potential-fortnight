@@ -81,11 +81,13 @@ echo "::endgroup::"
 
 LOGS=$(argo logs $WORKFLOW_NAME --no-color)
 
-LOGS=$(echo $LOGS | tail -n +2 | while read line; do; echo $line | cut -d : -f2- ; done;)
-HAS_SUCCEED=$(echo $LOGS | tail -n1 | cut -d : -f2-)
+TRAILED_LOGS=$(echo -n "${LOGS}" | tail -n +2 | while read line; do; echo $line | cut -d ":" -f2- ; done;)
+
+echo "TRAILED_LOGS=${TRAILED_LOGS}"
+HAS_SUCCEED=$(echo -n "${LOGS}" | tail -n1 | cut -d : -f2-)
 
 # -- Remove line breaker before sending values (Required by GithubAction)  --
-LOGS="${LOGS//$'\n'/'%0A'}"
+LOGS="${TRAILED_LOGS//$'\n'/'%0A'}"
 
 echo "HAS_SUCCEED=$HAS_SUCCEED"
 
