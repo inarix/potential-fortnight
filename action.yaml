@@ -20,6 +20,8 @@ inputs:
 outputs:
   results: # id of output
     description: 'Results of the model prediction regression workflow'
+  success:
+    description: 'Does Loki integration has succeed or not'
 runs:
   using: 'docker'
   image: 'Dockerfile'
