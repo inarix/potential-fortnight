@@ -81,7 +81,8 @@ echo "::endgroup::"
 
 LOGS=$(argo logs $WORKFLOW_NAME --no-color)
 
-TRAILED_LOGS=$(echo -n "${LOGS}" | tail -n +2 | while read line; do; echo $line | cut -d ":" -f2- ; done )
+# For the moment we do not remove container names
+# TRAILED_LOGS=$(echo -n $LOGS | tail -n +2 | while read line; do; echo $($line | cut -d ':' -f2-) ; done )
 
 echo "TRAILED_LOGS=${TRAILED_LOGS}"
 HAS_SUCCEED=$(echo -n "${LOGS}" | tail -n1 | cut -d : -f2- | tr -d ' ')
