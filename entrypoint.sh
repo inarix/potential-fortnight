@@ -38,9 +38,9 @@ fi
 
 echo "::group::Argo arguments list"
 echo "[$(date +"%m/%d/%y %T")] Launching Loki workflow $WORFLOW_TEMPLATE_NAME"
-echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id :  $REGRESSION_TEST_ID"
-echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id:  $MODEL_INSTANCE_ID"
-echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id:  $LOKI_FILE_LOCATION_ID"
+echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_id: $REGRESSION_TEST_ID"
+echo "[$(date +"%m/%d/%y %T")] Arguments are -p model_instance_id: $MODEL_INSTANCE_ID"
+echo "[$(date +"%m/%d/%y %T")] Arguments are -p test_file_location_id: $LOKI_FILE_LOCATION_ID"
 echo "::endgroup::"
 
 echo "::group::List Workflows"
