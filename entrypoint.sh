@@ -77,7 +77,11 @@ if [[ "${HAS_SUCCEED}" == "TEST_HAS_FAILED" ]]
 then
   echo "::set-output name=results::'${LOGS}'"
   echo "::set-output name=success::false"
-else
+elif [[ "${HAS_SUCCEED}" == "TEST_SUCCEED"]]
+then
   echo "::set-output name=results::'${LOGS}'"
   echo "::set-output name=success::true"
+else
+  echo "::set-output name=results::'${LOGS}'"
+  echo "::set-output name=success::false"
 fi
