@@ -3,6 +3,11 @@ if [[ -f .env ]]
 then
   export $(grep -v '^#' .env | xargs)
   echo "[$(date +"%m/%d/%y %T")] Exported all env variables"
+  if [[ $? != 0 ]]
+  then
+    echo "[$(date +"%m/%d/%y %T")] An error occured during import .env variables (Reason: unknown)"
+    exit 1
+  fi
 else 
   echo "[$(date +"%m/%d/%y %T")] An error occured during import .env variables (Reason: no .env file found)"
   exit 1
@@ -15,14 +20,14 @@ aws eks --region eu-west-1 update-kubeconfig --name $CLUSTER_NAME
 if [[ $? == 1 ]]
 then
   echo "[$(date +"%m/%d/%y %T")] An error occured during creation of kubeconfig or connection to cluster $CLUSTER_NAME"
-  exit
+  exit 1
 fi
 
 MODEL_INSTANCE_ID="$INPUT_MODELINSTANCEID"
 WORFLOW_TEMPLATE_NAME="$INPUT_WORKFLOWTEMPLATENAME"
 REGRESSION_TEST_ID="non-regression-${MODEL_INSTANCE_ID}-$(date +"%s")"
 
-if [[ -z $MODEL_INSTANCE_ID ]]
+if [[ -z $MODEL_INSTANCE_ID || $MODEL_INSTANCE_ID == "" || $INPUT_MODELINSTANCEID == "" ]]
 then
 
   echo "[$(date +"%m/%d/%y %T")] Error: missing MODEL_INSTANCE_ID env variable"
@@ -68,6 +73,7 @@ echo "::endgroup::"
 
 # -- Get Worflow metadata --
 echo "::group::Fetching ArgoWorkflow"
+
 argo get $WORKFLOW_NAME
 echo "::endgroup::"
 
