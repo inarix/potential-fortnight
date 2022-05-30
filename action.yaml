@@ -3,7 +3,7 @@
 # Date              : 28.05.2021
 # Last Modified Date: 28.05.2021
 # Last Modified By  : Alexandre Saison <alexandre.saison@inarix.com>
-name: 'Potential-Fortnight'
+name: 'Potential Fortnight'
 description: 'Launch Loki worflow to Argo to test models regressions'
 inputs:
   modelInstanceId:
